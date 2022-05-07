@@ -32,7 +32,8 @@ public class JClassLoader implements Closeable {
    * Otherwise, return null.
    */
   public JClass loadClass(String descriptor) {
-//    throw new UnimplementedError("TODO: load class");
+    // TODO: load class
+
     if (definedClass.containsKey(descriptor)) {
       return definedClass.get(descriptor);
     }
