@@ -4,6 +4,10 @@ import vjvm.utils.UnimplementedError;
 
 import java.io.Closeable;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  * Represents a path to search class files in.
@@ -16,7 +20,21 @@ public abstract class ClassSearchPath implements Closeable {
    */
   public static ClassSearchPath[] constructSearchPath(String path) {
     String sep = System.getProperty("path.separator");
-    throw new UnimplementedError("TODO: parse path and return an array of search paths");
+//    throw new UnimplementedError("TODO: parse path and return an array of search paths");
+
+    ArrayList<ClassSearchPath> classSearchPaths = new ArrayList<>();
+    for (String seg : path.split(sep)) {
+      Path segPath = Paths.get(seg);
+      if (Files.exists(segPath)) {
+        if (Files.isDirectory(segPath)) {
+          classSearchPaths.add(new DirSearchPath(seg));
+        } else if (Files.isRegularFile(segPath) && seg.endsWith(".jar")) {
+          classSearchPaths.add(new JarSearchPath(seg));
+        }
+      }
+    }
+
+    return classSearchPaths.toArray(new ClassSearchPath[0]);
   }
 
   /**

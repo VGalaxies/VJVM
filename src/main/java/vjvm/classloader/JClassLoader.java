@@ -8,7 +8,7 @@ import vjvm.runtime.JClass;
 import vjvm.vm.VMContext;
 import vjvm.utils.UnimplementedError;
 
-import java.io.Closeable;
+import java.io.*;
 import java.util.HashMap;
 
 public class JClassLoader implements Closeable {
@@ -32,10 +32,31 @@ public class JClassLoader implements Closeable {
    * Otherwise, return null.
    */
   public JClass loadClass(String descriptor) {
-    throw new UnimplementedError("TODO: load class");
+//    throw new UnimplementedError("TODO: load class");
+    if (definedClass.containsKey(descriptor)) {
+      return definedClass.get(descriptor);
+    }
 
-    // To construct a JClass, use the following constructor
-    // return new JClass(new DataInputStream(istream_from_file), this);
+    String target = descriptor.substring(1, descriptor.length() - 1) + ".class"; // assume
+
+    if (parent != null) {
+      JClass jClass = parent.loadClass(descriptor);
+      if (jClass != null) {
+        return jClass;
+      }
+    }
+
+    for (ClassSearchPath path : searchPaths) {
+      InputStream istream_from_file = path.findClass(target);
+      if (istream_from_file != null) {
+        // To construct a JClass, use the following constructor
+        JClass jClass = new JClass(new DataInputStream(istream_from_file), this);
+        definedClass.put(descriptor, jClass);
+        return jClass;
+      }
+    }
+
+    return null;
   }
 
   @Override
