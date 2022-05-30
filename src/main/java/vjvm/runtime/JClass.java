@@ -77,7 +77,10 @@ public class JClass {
       methods[i] = new MethodInfo(dataInput, this);
     }
 
-    attributes = null;
+    attributes = new Attribute[dataInput.readUnsignedShort()];
+    for (int i = 0; i < attributes.length; ++i) {
+      attributes[i] = Attribute.constructFromData(dataInput, constantPool);
+    }
   }
 
   public MethodInfo findMethod(String name, String descriptor) {
@@ -142,6 +145,6 @@ public class JClass {
 
   public String name() {
     // TODO: return class name from thisClass
-    throw new UnimplementedError();
+    return thisClazz;
   }
 }

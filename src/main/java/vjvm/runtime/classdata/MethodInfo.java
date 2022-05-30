@@ -42,6 +42,9 @@ public class MethodInfo {
     attributes = new Attribute[dataInput.readUnsignedShort()];
     for (int i = 0 ; i < attributes.length; ++i) {
       attributes[i] = Attribute.constructFromData(dataInput, jClass.constantPool());
+      if (attributes[i] instanceof Code) {
+        code = (Code) attributes[i];
+      }
     }
   }
 
