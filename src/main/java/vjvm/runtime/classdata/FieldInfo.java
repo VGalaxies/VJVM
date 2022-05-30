@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import vjvm.runtime.JClass;
 import vjvm.runtime.classdata.attribute.Attribute;
+import vjvm.runtime.classdata.constant.UTF8Constant;
 import vjvm.utils.UnimplementedError;
 
 import java.io.DataInput;
@@ -25,7 +26,18 @@ public class FieldInfo {
 
   @SneakyThrows
   public FieldInfo(DataInput dataInput, JClass jClass) {
-    throw new UnimplementedError("TODO: get field info from constant pool");
+    // TODO: get field info from constant pool
+    this.jClass = jClass;
+
+    accessFlags = dataInput.readShort();
+
+    name = ((UTF8Constant) jClass.constantPool().constant(dataInput.readUnsignedShort())).value();
+    descriptor = ((UTF8Constant) jClass.constantPool().constant(dataInput.readUnsignedShort())).value();
+
+    attributes = new Attribute[dataInput.readUnsignedShort()];
+    for (int i = 0 ; i < attributes.length; ++i) {
+      attributes[i] = Attribute.constructFromData(dataInput, jClass.constantPool());
+    }
   }
 
   public int attributeCount() {

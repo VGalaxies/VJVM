@@ -22,30 +22,51 @@ public abstract class Constant {
       case CONSTANT_Integer:
         result = new IntegerConstant(input);
         break;
+      case CONSTANT_Long:
+        result = new LongConstant(input);
+        count = 2;
+        break;
+
       case CONSTANT_NameAndType:
         result = new NameAndTypeConstant(input, jClass);
         break;
-      case CONSTANT_Utf8: {
+
+      case CONSTANT_Double:
+        result = new DoubleConstant(input);
+        count = 2;
+        break;
+      case CONSTANT_Float:
+        result = new FloatConstant(input);
+        break;
+
+      case CONSTANT_Utf8:
         result = new UTF8Constant(input);
         break;
-      }
-      case CONSTANT_Double:
-      case CONSTANT_Long:
-        result = new UnknownConstant(input, 8);
-        count = 2;
+
+      case CONSTANT_String:
+        result = new StringConstant(input, jClass);
+        break;
+
+      case CONSTANT_Class:
+        result = new ClassConstant(input, jClass);
+        break;
+
+      case CONSTANT_Fieldref:
+        result = new FieldrefConstant(input, jClass);
+        break;
+      case CONSTANT_Methodref:
+        result = new MethodrefConstant(input, jClass);
+        break;
+      case CONSTANT_InterfaceMethodref:
+        result = new InterfaceMethodrefConstant(input, jClass);
+        break;
+
+      case CONSTANT_MethodType:
+        result = new UnknownConstant(input, 2);
         break;
       case CONSTANT_MethodHandle:
         result = new UnknownConstant(input, 3);
         break;
-      case CONSTANT_String:
-      case CONSTANT_Class:
-      case CONSTANT_MethodType:
-        result = new UnknownConstant(input, 2);
-        break;
-      case CONSTANT_Float:
-      case CONSTANT_Fieldref:
-      case CONSTANT_Methodref:
-      case CONSTANT_InterfaceMethodref:
       case CONSTANT_Dynamic:
       case CONSTANT_InvokeDynamic:
         result = new UnknownConstant(input, 4);

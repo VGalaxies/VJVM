@@ -5,6 +5,7 @@ import vjvm.runtime.classdata.ConstantPool;
 import vjvm.runtime.classdata.FieldInfo;
 import vjvm.runtime.classdata.MethodInfo;
 import vjvm.runtime.classdata.attribute.Attribute;
+import vjvm.runtime.classdata.constant.ClassConstant;
 import vjvm.utils.UnimplementedError;
 import java.io.DataInput;
 import java.io.InvalidClassException;
@@ -26,6 +27,14 @@ public class JClass {
   private final ConstantPool constantPool;
   @Getter
   private final int accessFlags;
+
+  @Getter
+  private final String thisClazz;
+  @Getter
+  private final String superClazz;
+  @Getter
+  private final String[] interfaces;
+
   private final FieldInfo[] fields;
   private final MethodInfo[] methods;
   private final Attribute[] attributes;
@@ -47,13 +56,28 @@ public class JClass {
     constantPool = new ConstantPool(dataInput, this);
     accessFlags = dataInput.readUnsignedShort();
 
-    fields = null;
-    methods = null;
+    // TODO: you need to construct thisClass, superClass, interfaces, fields,
+    //  methods, and attributes from dataInput in lab 1.2; remove this `UnimplementedError` for lab 1.1
+
+    thisClazz = ((ClassConstant) constantPool.constant(dataInput.readUnsignedShort())).clazz();
+    superClazz = ((ClassConstant) constantPool.constant(dataInput.readUnsignedShort())).clazz();
+
+    interfaces = new String[dataInput.readUnsignedShort()];
+    for (int i = 0 ; i < interfaces.length; ++i) {
+      interfaces[i] = ((ClassConstant) constantPool.constant(dataInput.readUnsignedShort())).clazz();
+    }
+
+    fields = new FieldInfo[dataInput.readUnsignedShort()];
+    for (int i = 0 ; i < fields.length; ++i) {
+      fields[i] = new FieldInfo(dataInput, this);
+    }
+
+    methods = new MethodInfo[dataInput.readUnsignedShort()];
+    for (int i = 0; i < methods.length; ++i) {
+      methods[i] = new MethodInfo(dataInput, this);
+    }
+
     attributes = null;
-    throw new UnimplementedError(
-        "TODO: you need to construct thisClass, superClass, interfaces, fields, "
-        + "methods, and attributes from dataInput in lab 1.2; remove this for lab 1.1."
-        + "Some of them are not defined; you need to define them yourself");
   }
 
   public MethodInfo findMethod(String name, String descriptor) {
