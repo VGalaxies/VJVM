@@ -62,10 +62,19 @@ public class JInterpreter {
 
   public void setBreakpoint(MethodInfo method, int offset) {
     // TODO(optional): add and enable a breakpoint
+    Breakpoint breakpoint = new Breakpoint(method, offset);
+    breakpoint.enable();
+    breakpoints.add(breakpoint);
   }
 
   public void removeBreakpoint(int index) {
     // TODO(optional): disable and remove the breakpoint at breakpoints[index]
+    if (index < 0 || index >= breakpoints.size()) {
+      return;
+    }
+    Breakpoint breakpoint = breakpoints.get(index);
+    breakpoint.disable();
+    breakpoints.remove(index);
   }
 
   public List<Breakpoint> breakpoints() {
@@ -75,6 +84,8 @@ public class JInterpreter {
   private void run(JThread thread) {
     var frame = thread.top();
     var monitor = thread.context().monitor();
+
+    Breakpoint prevBreakpoint = null;
 
     while (thread.top() == frame) {
       if (status == Status.STEP && steps == 0) {
@@ -86,6 +97,20 @@ public class JInterpreter {
       op.run(thread);
 
       // TODO(optional): handle breakpoints
+      if (prevBreakpoint != null) {
+        prevBreakpoint.enable();
+        prevBreakpoint = null;
+      }
+
+      if (status == Status.BREAK) {
+        for (Breakpoint breakpoint : breakpoints) {
+          if (breakpoint.method() == frame.method() && breakpoint.offset() == thread.pc().position()) {
+            prevBreakpoint = breakpoint;
+            breakpoint.disable();
+            monitor.enter(thread);
+          }
+        }
+      }
     }
   }
 

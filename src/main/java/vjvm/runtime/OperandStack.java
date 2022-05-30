@@ -101,7 +101,7 @@ public class OperandStack {
   public Slots popSlots(int count) {
     // TODO: pop count slots and return
     Slots res = new Slots(count);
-    this.slots.copyTo(top - count, count, res, 0); // need to reverse
+    this.slots.copyTo(top - count, count, res, 0); // assume non-reverse
     top -= count;
     return res;
   }
