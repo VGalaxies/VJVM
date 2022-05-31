@@ -11,6 +11,10 @@ import vjvm.interpreter.instruction.loads.XLOAD;
 import vjvm.interpreter.instruction.references.INVOKESTATIC;
 import vjvm.interpreter.instruction.reserved.BREAKPOINT;
 import vjvm.interpreter.instruction.control.XRETURN;
+import vjvm.interpreter.instruction.stack.DUPX;
+import vjvm.interpreter.instruction.stack.DUPX_XY;
+import vjvm.interpreter.instruction.stack.POPX;
+import vjvm.interpreter.instruction.stack.SWAP;
 import vjvm.interpreter.instruction.stores.XSTORE;
 import vjvm.runtime.ProgramCounter;
 import vjvm.runtime.classdata.MethodInfo;
@@ -56,9 +60,9 @@ public class Decoder {
       /* 0x48 */  XSTORE::DSTORE_1, XSTORE::DSTORE_2, XSTORE::DSTORE_3, null,
       /* 0x4c */  null, null, null, null,
       /* 0x50 */  null, null, null, null,
-      /* 0x54 */  null, null, null, null,
-      /* 0x58 */  null, null, null, null,
-      /* 0x5c */  null, null, null, null,
+      /* 0x54 */  null, null, null, POPX::POP,
+      /* 0x58 */  POPX::POP2, DUPX::DUP, DUPX_XY::DUP_X1, DUPX_XY::DUP_X2,
+      /* 0x5c */  DUPX::DUP2, DUPX_XY::DUP2_X1, DUPX_XY::DUP2_X2, SWAP::SWAP,
       /* 0x60 */  null, null, null, null,
       /* 0x64 */  null, null, null, null,
       /* 0x68 */  null, null, null, null,
