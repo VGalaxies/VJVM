@@ -16,7 +16,7 @@ public class MethodDescriptors {
     int end = descriptor.indexOf(')');
 
     int size = 0;
-    do {
+    while (now < end) {
       size += Descriptors.size(descriptor.charAt(now));
 
       // consume [
@@ -31,8 +31,7 @@ public class MethodDescriptors {
       } else {
         now = now + 1;
       }
-
-    } while (now < end);
+    }
 
     return size;
   }
@@ -47,6 +46,7 @@ public class MethodDescriptors {
 
   // unit test
   public static void main(String[] args) {
+    System.out.println(MethodDescriptors.argc("()I")); // 0
     System.out.println(MethodDescriptors.argc("([CII[CIII)I")); // 7
     System.out.println(MethodDescriptors.argc("([[Ljava/lang/String;I)I")); // 2
     System.out.println(MethodDescriptors.argc("([[Ljava/lang/String;[[Ljava/lang/String;)I")); // 2

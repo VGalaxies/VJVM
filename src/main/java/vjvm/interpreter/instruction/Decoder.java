@@ -7,9 +7,11 @@ import vjvm.interpreter.instruction.constants.LDCX;
 import vjvm.interpreter.instruction.constants.NOP;
 import vjvm.interpreter.instruction.constants.XCONST_Y;
 import vjvm.interpreter.instruction.constants.XPUSH;
+import vjvm.interpreter.instruction.loads.XLOAD;
 import vjvm.interpreter.instruction.references.INVOKESTATIC;
 import vjvm.interpreter.instruction.reserved.BREAKPOINT;
 import vjvm.interpreter.instruction.control.XRETURN;
+import vjvm.interpreter.instruction.stores.XSTORE;
 import vjvm.runtime.ProgramCounter;
 import vjvm.runtime.classdata.MethodInfo;
 import vjvm.utils.UnimplementedInstructionError;
@@ -38,20 +40,20 @@ public class Decoder {
       /* 0x08 */  XCONST_Y::ICONST_5, XCONST_Y::LCONST_0, XCONST_Y::LCONST_1, XCONST_Y::FCONST_0,
       /* 0x0c */  XCONST_Y::FCONST_1, XCONST_Y::FCONST_2, XCONST_Y::DCONST_0, XCONST_Y::DCONST_1,
       /* 0x10 */  XPUSH::BIPUSH, XPUSH::SIPUSH, LDCX::LDC, LDCX::LDC_W,
-      /* 0x14 */  LDCX::LDC2_W, null, null, null,
-      /* 0x18 */  null, null, null, null,
-      /* 0x1c */  null, null, null, null,
-      /* 0x20 */  null, null, null, null,
-      /* 0x24 */  null, null, null, null,
-      /* 0x28 */  null, null, null, null,
+      /* 0x14 */  LDCX::LDC2_W, XLOAD::ILOAD, XLOAD::LLOAD, XLOAD::FLOAD,
+      /* 0x18 */  XLOAD::DLOAD, null, XLOAD::ILOAD_0, XLOAD::ILOAD_1,
+      /* 0x1c */  XLOAD::ILOAD_2, XLOAD::ILOAD_3, XLOAD::LLOAD_0, XLOAD::LLOAD_1,
+      /* 0x20 */  XLOAD::LLOAD_2, XLOAD::LLOAD_3, XLOAD::FLOAD_0, XLOAD::FLOAD_1,
+      /* 0x24 */  XLOAD::FLOAD_2, XLOAD::FLOAD_3, XLOAD::DLOAD_0, XLOAD::DLOAD_1,
+      /* 0x28 */  XLOAD::DLOAD_2, XLOAD::DLOAD_3, null, null,
       /* 0x2c */  null, null, null, null,
       /* 0x30 */  null, null, null, null,
-      /* 0x34 */  null, null, null, null,
-      /* 0x38 */  null, null, null, null,
-      /* 0x3c */  null, null, null, null,
-      /* 0x40 */  null, null, null, null,
-      /* 0x44 */  null, null, null, null,
-      /* 0x48 */  null, null, null, null,
+      /* 0x34 */  null, null, XSTORE::ISTORE, XSTORE::LSTORE,
+      /* 0x38 */  XSTORE::FSTORE, XSTORE::DSTORE, null, XSTORE::ISTORE_0,
+      /* 0x3c */  XSTORE::ISTORE_1, XSTORE::ISTORE_2, XSTORE::ISTORE_3, XSTORE::LSTORE_0,
+      /* 0x40 */  XSTORE::LSTORE_1, XSTORE::LSTORE_2, XSTORE::LSTORE_3, XSTORE::FSTORE_0,
+      /* 0x44 */  XSTORE::FSTORE_1, XSTORE::FSTORE_2, XSTORE::FSTORE_3, XSTORE::DSTORE_0,
+      /* 0x48 */  XSTORE::DSTORE_1, XSTORE::DSTORE_2, XSTORE::DSTORE_3, null,
       /* 0x4c */  null, null, null, null,
       /* 0x50 */  null, null, null, null,
       /* 0x54 */  null, null, null, null,
