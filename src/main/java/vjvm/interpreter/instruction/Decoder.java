@@ -11,6 +11,7 @@ import vjvm.interpreter.instruction.constants.LDCX;
 import vjvm.interpreter.instruction.constants.NOP;
 import vjvm.interpreter.instruction.constants.XCONST_Y;
 import vjvm.interpreter.instruction.constants.XPUSH;
+import vjvm.interpreter.instruction.control.GOTO;
 import vjvm.interpreter.instruction.conversions.X2Y;
 import vjvm.interpreter.instruction.loads.XLOAD;
 import vjvm.interpreter.instruction.math.IINC;
@@ -89,7 +90,7 @@ public class Decoder {
       /* 0x98 */  XCMPCOND::DCMPG, IFCOND::IFEQ, IFCOND::IFNE, IFCOND::IFLT,
       /* 0x9c */  IFCOND::IFGE, IFCOND::IFGT, IFCOND::IFLE, IF_XCMPCOND::IF_ICMPEQ,
       /* 0xa0 */  IF_XCMPCOND::IF_ICMPNE, IF_XCMPCOND::IF_ICMPLT, IF_XCMPCOND::IF_ICMPGE, IF_XCMPCOND::IF_ICMPGT,
-      /* 0xa4 */  IF_XCMPCOND::IF_ICMPLE, null, null, null,
+      /* 0xa4 */  IF_XCMPCOND::IF_ICMPLE, null, null, GOTO::GOTO,
       /* 0xa8 */  null, null, null, null,
       /* 0xac */  null, null, null, null,
       /* 0xb0 */  null, XRETURN::RETURN, null, null,
