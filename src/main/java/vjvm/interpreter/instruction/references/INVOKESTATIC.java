@@ -20,7 +20,7 @@ public class INVOKESTATIC extends Instruction {
     JClass thisClass = method.jClass();
 
     ConstantPool constantPool = thisClass.constantPool();
-    short index = pc.short_();
+    int index = pc.ushort();
     Constant methodRef = constantPool.constant(index);
     assert methodRef instanceof MethodrefConstant;
 

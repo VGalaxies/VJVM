@@ -31,6 +31,13 @@ public class Slots {
     assert typeArray[index] == type;
   }
 
+  public void makeEmpty(int index, int length) {
+    for (int i = 0; i < length; ++i) {
+      dataArray[index + i] = null;
+      typeArray[index + i] = null;
+    }
+  }
+
   public int int_(int index) {
     // TODO: return the int at index
     checkType(index, SlotType.INT);

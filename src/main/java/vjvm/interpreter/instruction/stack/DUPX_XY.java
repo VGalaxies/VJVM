@@ -11,29 +11,29 @@ import vjvm.runtime.classdata.MethodInfo;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class DUPX_XY extends Instruction {
-  private enum DupType {
+  private enum Type {
     DUP_X1,
     DUP_X2,
     DUP2_X1,
     DUP2_X2,
   };
-  private DupType type;
+  private Type type;
   private String name;
 
   public static final DUPX_XY DUP_X1(ProgramCounter pc, MethodInfo method) {
-    return new DUPX_XY(DupType.DUP_X1, "dup_x1");
+    return new DUPX_XY(Type.DUP_X1, "dup_x1");
   }
 
   public static final DUPX_XY DUP_X2(ProgramCounter pc, MethodInfo method) {
-    return new DUPX_XY(DupType.DUP_X2, "dup_x2");
+    return new DUPX_XY(Type.DUP_X2, "dup_x2");
   }
 
   public static final DUPX_XY DUP2_X1(ProgramCounter pc, MethodInfo method) {
-    return new DUPX_XY(DupType.DUP2_X1, "dup2_x1");
+    return new DUPX_XY(Type.DUP2_X1, "dup2_x1");
   }
 
   public static final DUPX_XY DUP2_X2(ProgramCounter pc, MethodInfo method) {
-    return new DUPX_XY(DupType.DUP2_X2, "dup2_x2");
+    return new DUPX_XY(Type.DUP2_X2, "dup2_x2");
   }
 
   @Override

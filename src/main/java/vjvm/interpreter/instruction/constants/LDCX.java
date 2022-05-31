@@ -15,21 +15,21 @@ public class LDCX extends Instruction {
   private String name;
 
   public static final LDCX LDC(ProgramCounter pc, MethodInfo method) {
-    byte index = pc.byte_();
+    int index = pc.ubyte();
     Constant constant = method.jClass().constantPool().constant(index);
     assert constant instanceof IntegerConstant || constant instanceof FloatConstant;
     return new LDCX(index, "ldc");
   }
 
   public static final LDCX LDC_W(ProgramCounter pc, MethodInfo method) {
-    short index = pc.short_();
+    int index = pc.ushort();
     Constant constant = method.jClass().constantPool().constant(index);
     assert constant instanceof IntegerConstant || constant instanceof FloatConstant;
     return new LDCX(index, "ldc_w");
   }
 
   public static final LDCX LDC2_W(ProgramCounter pc, MethodInfo method) {
-    short index = pc.short_();
+    int index = pc.ushort();
     Constant constant = method.jClass().constantPool().constant(index);
     assert constant instanceof LongConstant || constant instanceof DoubleConstant;
     return new LDCX(index, "ldc2_w");
@@ -52,6 +52,6 @@ public class LDCX extends Instruction {
 
   @Override
   public String toString() {
-    return name;
+    return String.format("%s %d", name, index);
   }
 }

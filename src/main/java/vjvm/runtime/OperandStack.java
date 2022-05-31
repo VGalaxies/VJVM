@@ -19,22 +19,30 @@ public class OperandStack {
 
   public void pushInt(int value) {
     // TODO: push value
-    slots.int_(top++, value);
+    slots.int_(top, value);
+    top += 1;
   }
 
   public int popInt() {
     // TODO: pop value
-    return slots.int_(--top);
+    top -= 1;
+    int res = slots.int_(top);
+    slots.makeEmpty(top, 1);
+    return res;
   }
 
   public void pushFloat(float value) {
     // TODO: push value
-    slots.float_(top++, value);
+    slots.float_(top, value);
+    top += 1;
   }
 
   public float popFloat() {
     // TODO: pop value
-    return slots.float_(--top);
+    top -= 1;
+    float res = slots.float_(top);
+    slots.makeEmpty(top, 1);
+    return res;
   }
 
   public void pushLong(long value) {
@@ -46,7 +54,9 @@ public class OperandStack {
   public long popLong() {
     // TODO: pop value
     top -= 2;
-    return slots.long_(top);
+    long res = slots.long_(top);
+    slots.makeEmpty(top, 2);
+    return res;
   }
 
   public void pushDouble(double value) {
@@ -58,37 +68,51 @@ public class OperandStack {
   public double popDouble() {
     // TODO: pop value
     top -= 2;
-    return slots.double_(top);
+    double res = slots.double_(top);
+    slots.makeEmpty(top, 2);
+    return res;
   }
 
   public void pushByte(byte value) {
     // TODO: push value
-    slots.byte_(top++, value);
+    slots.byte_(top, value);
+    top += 1;
   }
 
   public byte popByte() {
     // TODO: pop value
-    return slots.byte_(--top);
+    top -= 1;
+    byte res = slots.byte_(top);
+    slots.makeEmpty(top, 1);
+    return res;
   }
 
   public void pushChar(char value) {
     // TODO: push value
-    slots.char_(top++, value);
+    slots.char_(top, value);
+    top += 1;
   }
 
   public char popChar() {
     // TODO: pop value
-    return slots.char_(--top);
+    top -= 1;
+    char res = slots.char_(top);
+    slots.makeEmpty(top, 1);
+    return res;
   }
 
   public void pushShort(short value) {
     // TODO: push value
-    slots.short_(top++, value);
+    slots.short_(top, value);
+    top += 1;
   }
 
   public short popShort() {
     // TODO: pop value
-    return slots.short_(--top);
+    top -= 1;
+    short res = slots.short_(top);
+    slots.makeEmpty(top, 1);
+    return res;
   }
 
   public void pushSlots(Slots slots) {
@@ -101,13 +125,15 @@ public class OperandStack {
   public Slots popSlots(int count) {
     // TODO: pop count slots and return
     Slots res = new Slots(count);
-    this.slots.copyTo(top - count, count, res, 0); // assume non-reverse
     top -= count;
+    this.slots.copyTo(top, count, res, 0); // assume non-reverse
+    this.slots.makeEmpty(top, count);
     return res;
   }
 
   public void clear() {
     // TODO: pop all slots
+    this.slots.makeEmpty(0, top);
     top = 0;
   }
 }

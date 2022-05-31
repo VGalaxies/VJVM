@@ -16,19 +16,19 @@ public class XLOAD extends Instruction {
   private String name;
 
   public static final XLOAD ILOAD(ProgramCounter pc, MethodInfo method) {
-    return new XLOAD(pc.byte_(), "iload");
+    return new XLOAD(pc.ubyte(), "iload");
   }
 
   public static final XLOAD LLOAD(ProgramCounter pc, MethodInfo method) {
-    return new XLOAD(pc.byte_(), "lload");
+    return new XLOAD(pc.ubyte(), "lload");
   }
 
   public static final XLOAD FLOAD(ProgramCounter pc, MethodInfo method) {
-    return new XLOAD(pc.byte_(), "fload");
+    return new XLOAD(pc.ubyte(), "fload");
   }
 
   public static final XLOAD DLOAD(ProgramCounter pc, MethodInfo method) {
-    return new XLOAD(pc.byte_(), "dload");
+    return new XLOAD(pc.ubyte(), "dload");
   }
 
   public static final XLOAD ILOAD_0(ProgramCounter pc, MethodInfo method) {
@@ -117,6 +117,6 @@ public class XLOAD extends Instruction {
 
   @Override
   public String toString() {
-    return name;
+    return String.format("%s %d", name, index);
   }
 }

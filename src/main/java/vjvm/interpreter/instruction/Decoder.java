@@ -8,6 +8,10 @@ import vjvm.interpreter.instruction.constants.NOP;
 import vjvm.interpreter.instruction.constants.XCONST_Y;
 import vjvm.interpreter.instruction.constants.XPUSH;
 import vjvm.interpreter.instruction.loads.XLOAD;
+import vjvm.interpreter.instruction.math.IINC;
+import vjvm.interpreter.instruction.math.LIOPR;
+import vjvm.interpreter.instruction.math.XNEG;
+import vjvm.interpreter.instruction.math.XOPR;
 import vjvm.interpreter.instruction.references.INVOKESTATIC;
 import vjvm.interpreter.instruction.reserved.BREAKPOINT;
 import vjvm.interpreter.instruction.control.XRETURN;
@@ -63,16 +67,16 @@ public class Decoder {
       /* 0x54 */  null, null, null, POPX::POP,
       /* 0x58 */  POPX::POP2, DUPX::DUP, DUPX_XY::DUP_X1, DUPX_XY::DUP_X2,
       /* 0x5c */  DUPX::DUP2, DUPX_XY::DUP2_X1, DUPX_XY::DUP2_X2, SWAP::SWAP,
-      /* 0x60 */  null, null, null, null,
-      /* 0x64 */  null, null, null, null,
-      /* 0x68 */  null, null, null, null,
-      /* 0x6c */  null, null, null, null,
-      /* 0x70 */  null, null, null, null,
-      /* 0x74 */  null, null, null, null,
-      /* 0x78 */  null, null, null, null,
-      /* 0x7c */  null, null, null, null,
-      /* 0x80 */  null, null, null, null,
-      /* 0x84 */  null, null, null, null,
+      /* 0x60 */  XOPR::IADD, XOPR::LADD, XOPR::FADD, XOPR::DADD,
+      /* 0x64 */  XOPR::ISUB, XOPR::LSUB, XOPR::FSUB, XOPR::DSUB,
+      /* 0x68 */  XOPR::IMUL, XOPR::LMUL, XOPR::FMUL, XOPR::DMUL,
+      /* 0x6c */  XOPR::IDIV, XOPR::LDIV, XOPR::FDIV, XOPR::DDIV,
+      /* 0x70 */  XOPR::IREM, XOPR::LREM, XOPR::FREM, XOPR::DREM,
+      /* 0x74 */  XNEG::INEG, XNEG::LNEG, XNEG::FNEG, XNEG::DNEG,
+      /* 0x78 */  LIOPR::ISHL, LIOPR::LSHL, LIOPR::ISHR, LIOPR::LSHR,
+      /* 0x7c */  LIOPR::IUSHR, LIOPR::LUSHR, LIOPR::IAND, LIOPR::LAND,
+      /* 0x80 */  LIOPR::IOR, LIOPR::LOR, LIOPR::IXOR, LIOPR::LXOR,
+      /* 0x84 */  IINC::IINC, null, null, null,
       /* 0x88 */  null, null, null, null,
       /* 0x8c */  null, null, null, null,
       /* 0x90 */  null, null, null, null,
