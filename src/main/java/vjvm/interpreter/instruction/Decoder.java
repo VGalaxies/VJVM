@@ -3,6 +3,10 @@ package vjvm.interpreter.instruction;
 import java.util.function.BiFunction;
 
 import lombok.var;
+import vjvm.interpreter.instruction.comparisons.IFCOND;
+import vjvm.interpreter.instruction.comparisons.IF_XCMPCOND;
+import vjvm.interpreter.instruction.comparisons.LCMP;
+import vjvm.interpreter.instruction.comparisons.XCMPCOND;
 import vjvm.interpreter.instruction.constants.LDCX;
 import vjvm.interpreter.instruction.constants.NOP;
 import vjvm.interpreter.instruction.constants.XCONST_Y;
@@ -81,11 +85,11 @@ public class Decoder {
       /* 0x88 */  X2Y::L2I, X2Y::L2F, X2Y::L2D, X2Y::F2I,
       /* 0x8c */  X2Y::F2L, X2Y::F2D, X2Y::D2I, X2Y::D2L,
       /* 0x90 */  X2Y::D2F, X2Y::I2B, X2Y::I2C, X2Y::I2S,
-      /* 0x94 */  null, null, null, null,
-      /* 0x98 */  null, null, null, null,
-      /* 0x9c */  null, null, null, null,
-      /* 0xa0 */  null, null, null, null,
-      /* 0xa4 */  null, null, null, null,
+      /* 0x94 */  LCMP::LCMP, XCMPCOND::FCMPL, XCMPCOND::FCMPG, XCMPCOND::DCMPL,
+      /* 0x98 */  XCMPCOND::DCMPG, IFCOND::IFEQ, IFCOND::IFNE, IFCOND::IFLT,
+      /* 0x9c */  IFCOND::IFGE, IFCOND::IFGT, IFCOND::IFLE, IF_XCMPCOND::IF_ICMPEQ,
+      /* 0xa0 */  IF_XCMPCOND::IF_ICMPNE, IF_XCMPCOND::IF_ICMPLT, IF_XCMPCOND::IF_ICMPGE, IF_XCMPCOND::IF_ICMPGT,
+      /* 0xa4 */  IF_XCMPCOND::IF_ICMPLE, null, null, null,
       /* 0xa8 */  null, null, null, null,
       /* 0xac */  null, null, null, null,
       /* 0xb0 */  null, XRETURN::RETURN, null, null,

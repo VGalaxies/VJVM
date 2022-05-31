@@ -116,6 +116,6 @@ public class XSTORE extends Instruction {
 
   @Override
   public String toString() {
-    return name;
+    return String.format("%s %d", name, index);
   }
 }
