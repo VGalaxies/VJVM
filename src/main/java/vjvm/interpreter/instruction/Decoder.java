@@ -7,6 +7,7 @@ import vjvm.interpreter.instruction.constants.LDCX;
 import vjvm.interpreter.instruction.constants.NOP;
 import vjvm.interpreter.instruction.constants.XCONST_Y;
 import vjvm.interpreter.instruction.constants.XPUSH;
+import vjvm.interpreter.instruction.conversions.X2Y;
 import vjvm.interpreter.instruction.loads.XLOAD;
 import vjvm.interpreter.instruction.math.IINC;
 import vjvm.interpreter.instruction.math.LIOPR;
@@ -76,10 +77,10 @@ public class Decoder {
       /* 0x78 */  LIOPR::ISHL, LIOPR::LSHL, LIOPR::ISHR, LIOPR::LSHR,
       /* 0x7c */  LIOPR::IUSHR, LIOPR::LUSHR, LIOPR::IAND, LIOPR::LAND,
       /* 0x80 */  LIOPR::IOR, LIOPR::LOR, LIOPR::IXOR, LIOPR::LXOR,
-      /* 0x84 */  IINC::IINC, null, null, null,
-      /* 0x88 */  null, null, null, null,
-      /* 0x8c */  null, null, null, null,
-      /* 0x90 */  null, null, null, null,
+      /* 0x84 */  IINC::IINC, X2Y::I2L, X2Y::I2F, X2Y::I2D,
+      /* 0x88 */  X2Y::L2I, X2Y::L2F, X2Y::L2D, X2Y::F2I,
+      /* 0x8c */  X2Y::F2L, X2Y::F2D, X2Y::D2I, X2Y::D2L,
+      /* 0x90 */  X2Y::D2F, X2Y::I2B, X2Y::I2C, X2Y::I2S,
       /* 0x94 */  null, null, null, null,
       /* 0x98 */  null, null, null, null,
       /* 0x9c */  null, null, null, null,
