@@ -18,11 +18,11 @@ public class GOTO extends Instruction {
 
   @Override
   public void run(JThread thread) {
-    thread.pc().move(offset - 2);
+    thread.pc().move(offset - 3);
   }
 
   @Override
   public String toString() {
-    return name;
+    return String.format("%s %d", name, offset);
   }
 }

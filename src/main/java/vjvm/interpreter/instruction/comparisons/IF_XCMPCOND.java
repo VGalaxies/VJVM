@@ -54,37 +54,37 @@ public class IF_XCMPCOND extends Instruction {
     switch (type) {
       case EQ: {
         if (value1 == value2) {
-          thread.pc().move(offset - 2); // assume
+          thread.pc().move(offset - 3); // assume
         }
         break;
       }
       case NE: {
         if (value1 != value2) {
-          thread.pc().move(offset - 2);
+          thread.pc().move(offset - 3);
         }
         break;
       }
       case GE: {
         if (value1 >= value2) {
-          thread.pc().move(offset - 2);
+          thread.pc().move(offset - 3);
         }
         break;
       }
       case GT: {
         if (value1 > value2) {
-          thread.pc().move(offset - 2);
+          thread.pc().move(offset - 3);
         }
         break;
       }
       case LE: {
         if (value1 <= value2) {
-          thread.pc().move(offset - 2);
+          thread.pc().move(offset - 3);
         }
         break;
       }
       case LT: {
         if (value1 < value2) {
-          thread.pc().move(offset - 2);
+          thread.pc().move(offset - 3);
         }
         break;
       }
@@ -94,6 +94,6 @@ public class IF_XCMPCOND extends Instruction {
 
   @Override
   public String toString() {
-    return name;
+    return String.format("%s %d", name, offset);
   }
 }

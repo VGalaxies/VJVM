@@ -117,6 +117,9 @@ public class XLOAD extends Instruction {
 
   @Override
   public String toString() {
-    return String.format("%s %d", name, index);
+    if (name.length() == 5) {
+      return String.format("%s %d", name, index);
+    }
+    return name;
   }
 }
