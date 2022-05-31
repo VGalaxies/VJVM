@@ -3,6 +3,7 @@ package vjvm.interpreter.instruction.constants;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.var;
+import vjvm.interpreter.instruction.Decoder;
 import vjvm.interpreter.instruction.Instruction;
 import vjvm.runtime.JThread;
 import vjvm.runtime.OperandStack;
@@ -43,6 +44,34 @@ public class XCONST_Y<T> extends Instruction {
 
   public static final XCONST_Y<Integer> ICONST_5(ProgramCounter pc, MethodInfo method) {
     return new XCONST_Y<Integer>(5, OperandStack::pushInt, "iconst_5");
+  }
+
+  public static final XCONST_Y<Long> LCONST_0(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Long>(0L, OperandStack::pushLong, "lconst_0");
+  }
+
+  public static final XCONST_Y<Long> LCONST_1(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Long>(1L, OperandStack::pushLong, "lconst_1");
+  }
+
+  public static final XCONST_Y<Float> FCONST_0(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Float>(0F, OperandStack::pushFloat, "fconst_0");
+  }
+
+  public static final XCONST_Y<Float> FCONST_1(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Float>(1F, OperandStack::pushFloat, "fconst_1");
+  }
+
+  public static final XCONST_Y<Float> FCONST_2(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Float>(2F, OperandStack::pushFloat, "fconst_2");
+  }
+
+  public static final XCONST_Y<Double> DCONST_0(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Double>(0.0, OperandStack::pushDouble, "dconst_0");
+  }
+
+  public static final XCONST_Y<Double> DCONST_1(ProgramCounter pc, MethodInfo method) {
+    return new XCONST_Y<Double>(1.0, OperandStack::pushDouble, "dconst_1");
   }
 
   @Override
