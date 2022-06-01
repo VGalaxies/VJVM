@@ -51,8 +51,8 @@ public class XCMPCOND extends Instruction {
         }
       }
     } else if (prefix == 'd') {
-      double value2 = stack.popFloat();
-      double value1 = stack.popFloat();
+      double value2 = stack.popDouble();
+      double value1 = stack.popDouble();
       if (value1 > value2) {
         stack.pushInt(1);
       } else if (value1 == value2) {
